@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela listar pessoas</title>
+</head>
+<body>
+    <h1>Listar pessoas</h1>
+    <ul>
+       {{#each pessoas}}
+            <li>
+                <a href="/pessoas/{{id}}"> 
+                    {{nome}} - 
+                </a> 
+                <a href="/pessoas/{{id}}/editar">editar</a>
+                <form action="/pessoas/{{id}}/excluir"
+                method="post"
+                style="display: inline;">
+                <button type="submit"
+                onclick="return confirm('confirmar exclusão?')">
+                excluir
+                </button>
+                
+                </form>
+            </li>
+       {{/each}}
+    </ul>
+</body>
+</html>
