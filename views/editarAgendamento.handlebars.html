@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Agendamento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        .nav-links {
+            margin-bottom: 20px;
+        }
+        .nav-links a {
+            margin-right: 15px;
+            text-decoration: none;
+            color: #3498db;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        form {
+            margin-top: 20px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #27ae60;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #229954;
+        }
+    </style>
+</head>
+<body>
+    <h1>Editar Agendamento</h1>
+    <div class="nav-links">
+        <a href="/">🏠 Início</a>
+        <a href="/agendamentos">← Voltar</a>
+    </div>
+    
+    <form action="/agendamentos/{{agendamento.id}}" method="post">
+        <div class="form-group">
+            <label for="animalId">Animal:</label>
+            <select name="animalId" id="animalId" required>
+                <option value="">Selecione um animal</option>
+                {{#each animais}}
+                <option value="{{id}}" {{#if (eq id ../agendamento.animalId)}}selected{{/if}}>{{nome}} ({{especie}})</option>
+                {{/each}}
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="tipoVacina">Tipo de Vacina:</label>
+            <select name="tipoVacina" id="tipoVacina" required>
+                <option value="">Selecione o tipo de vacina</option>
+                <option value="V8" {{#if (eq agendamento.tipoVacina "V8")}}selected{{/if}}>V8</option>
+                <option value="V10" {{#if (eq agendamento.tipoVacina "V10")}}selected{{/if}}>V10</option>
+                <option value="Antirrábica" {{#if (eq agendamento.tipoVacina "Antirrábica")}}selected{{/if}}>Antirrábica</option>
+                <option value="Gripe" {{#if (eq agendamento.tipoVacina "Gripe")}}selected{{/if}}>Gripe</option>
+                <option value="Quádrupla" {{#if (eq agendamento.tipoVacina "Quádrupla")}}selected{{/if}}>Quádrupla</option>
+                <option value="Outra" {{#if (eq agendamento.tipoVacina "Outra")}}selected{{/if}}>Outra</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="data">Data:</label>
+            <input type="date" name="data" id="data" value="{{agendamento.data}}" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="horario">Horário:</label>
+            <input type="time" name="horario" id="horario" value="{{agendamento.horario}}" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="status">Status:</label>
+            <select name="status" id="status" required>
+                <option value="agendado" {{#if (eq agendamento.status "agendado")}}selected{{/if}}>Agendado</option>
+                <option value="realizado" {{#if (eq agendamento.status "realizado")}}selected{{/if}}>Realizado</option>
+                <option value="cancelado" {{#if (eq agendamento.status "cancelado")}}selected{{/if}}>Cancelado</option>
+            </select>
+        </div>
+        
+        <button type="submit">Salvar Alterações</button>
+    </form>
+</body>
+</html>
+

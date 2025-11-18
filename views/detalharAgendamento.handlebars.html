@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhar Agendamento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        .nav-links {
+            margin-bottom: 20px;
+        }
+        .nav-links a {
+            margin-right: 15px;
+            text-decoration: none;
+            color: #3498db;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        .details {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .detail-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+        .detail-label {
+            font-weight: bold;
+            color: #7f8c8d;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .detail-value {
+            color: #2c3e50;
+            font-size: 18px;
+        }
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        .agendado {
+            background-color: #3498db;
+            color: white;
+        }
+        .realizado {
+            background-color: #27ae60;
+            color: white;
+        }
+        .cancelado {
+            background-color: #e74c3c;
+            color: white;
+        }
+        .actions {
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        .btn-edit {
+            background-color: #3498db;
+            color: white;
+        }
+        .btn-back {
+            background-color: #95a5a6;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Detalhar Agendamento</h1>
+    <div class="nav-links">
+        <a href="/">🏠 Início</a>
+        <a href="/agendamentos">← Voltar</a>
+    </div>
+    
+    <div class="details">
+        <div class="detail-item">
+            <span class="detail-label">ID:</span>
+            <span class="detail-value">{{agendamento.id}}</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">Animal:</span>
+            <span class="detail-value">{{agendamento.animal.nome}} ({{agendamento.animal.especie}})</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">Tutor:</span>
+            <span class="detail-value">{{agendamento.tutor.nome}}</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">Tipo de Vacina:</span>
+            <span class="detail-value">{{agendamento.tipoVacina}}</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">Data:</span>
+            <span class="detail-value">{{agendamento.data}}</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">Horário:</span>
+            <span class="detail-value">{{agendamento.horario}}</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">Status:</span>
+            <span class="detail-value"><span class="status-badge {{agendamento.status}}">{{agendamento.status}}</span></span>
+        </div>
+    </div>
+    
+    <div class="actions">
+        <a href="/agendamentos/{{agendamento.id}}/editar" class="btn btn-edit">Editar</a>
+        <a href="/agendamentos" class="btn btn-back">Voltar para Lista</a>
+    </div>
+</body>
+</html>
+
