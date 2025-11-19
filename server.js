@@ -7,10 +7,11 @@ const port = 3000;
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-app.engine('handlebars', exphbs.engine({defaultLayout: false}));
-app.set('view engine', "handlebars");
-
-app.engine('handlebars', hbs.engine);
+app.engine('handlebars', exphbs.engine({
+    defaultLayout: false, 
+    helpers: {
+        eq: (a, b) => a === b
+    }}));
 app.set('view engine', 'handlebars');
 
 let tutores = [
@@ -35,7 +36,7 @@ app.get('/', (req, res) => {
     res.render('home');
 })
 
-// ========== ROTAS DE TUTORES ==========
+
 app.get('/tutores', (req, res) => {
     res.render('listarTutores', {tutores});
 });
@@ -101,7 +102,6 @@ app.post('/tutores/:id/excluir', (req, res) => {
     }
 });
 
-// ========== ROTAS DE ANIMAIS ==========
 app.get('/animais', (req, res) => {
     const animaisComTutor = animais.map(a => {
         const tutor = tutores.find(t => t.id === a.tutorId);
@@ -184,7 +184,6 @@ app.post('/animais/:id/excluir', (req, res) => {
     }
 });
 
-// ========== ROTAS DE AGENDAMENTOS ==========
 app.get('/agendamentos', (req, res) => {
     const agendamentosComDados = agendamentos.map(ag => {
         const animal = animais.find(a => a.id === ag.animalId);
