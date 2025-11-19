@@ -35,7 +35,7 @@ app.get('/', (req, res) => {
     res.render('home');
 })
 
-// ========== ROTAS DE TUTORES ==========
+
 app.get('/tutores', (req, res) => {
     res.render('listarTutores', {tutores});
 });
@@ -101,7 +101,7 @@ app.post('/tutores/:id/excluir', (req, res) => {
     }
 });
 
-// ========== ROTAS DE ANIMAIS ==========
+
 app.get('/animais', (req, res) => {
     const animaisComTutor = animais.map(a => {
         const tutor = tutores.find(t => t.id === a.tutorId);
@@ -184,7 +184,7 @@ app.post('/animais/:id/excluir', (req, res) => {
     }
 });
 
-// ========== ROTAS DE AGENDAMENTOS ==========
+
 app.get('/agendamentos', (req, res) => {
     const agendamentosComDados = agendamentos.map(ag => {
         const animal = animais.find(a => a.id === ag.animalId);
@@ -274,4 +274,5 @@ app.post('/agendamentos/:id/excluir', (req, res) => {
 
 app.listen(port, () => {
     console.log(`Servidor em execução: http://localhost:${port}`);
+
 });
