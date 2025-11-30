@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar serviços</title>
+</head>
+<body>
+    <form action="/servicos/{{servico.id}}" method="POST">
+
+    <label>Nome:</label>
+    <input type="text" name="nome" value="{{servico.nome}}" required>
+
+    <label>Preço:</label>
+    <input type="number" name="preco" step="0.01" value="{{servico.preco}}" required>
+
+    <label>Descrição:</label>
+    <textarea name="descricao" required>{{servico.descricao}}</textarea>
+
+    <button type="submit">Salvar Alterações</button>
+</form>
+
+</body>
+</html>

@@ -270,6 +270,204 @@ app.post('/agendamentos/:id/excluir', (req, res) => {
         return res.status(404).send('Agendamento não encontrado.');
     }
 });
+// CRUD PRODUTOS
+// Listar produtos
+let produtos = [
+    {id: 1, nome: "Ração Premium", preco: 120.00, estoque: 15},
+    {id: 2, nome: "Coleira", preco: 35.00, estoque: 40},
+    {id: 3, nome: "Brinquedo", preco: 20.00, estoque: 25},
+];
+
+
+app.get('/produtos', (req, res) => {
+    res.render('listarProdutos', {produtos});
+});
+
+// Página novo produto
+app.get('/produtos/novo', (req, res) => {
+    res.render('cadastrarProduto');
+});
+
+// Criar produto
+app.post('/produtos', (req, res) => {
+    const {nome, preco, estoque} = req.body;
+
+    const novo = {
+        id: produtos.length ? Math.max(...produtos.map(p => p.id)) + 1 : 1,
+        nome,
+        preco: parseFloat(preco),
+        estoque: parseInt(estoque)
+    };
+
+    produtos.push(novo);
+    res.redirect('/produtos');
+});
+
+// Detalhar produto
+app.get('/produtos/:id', (req, res) => {
+    const produto = produtos.find(p => p.id === parseInt(req.params.id));
+    if (!produto) return res.status(404).send("Produto não encontrado");
+    res.render('detalharProduto', {produto});
+});
+
+// Editar produto
+app.get('/produtos/:id/editar', (req, res) => {
+    const produto = produtos.find(p => p.id === parseInt(req.params.id));
+    if (!produto) return res.status(404).send("Produto não encontrado");
+    res.render('editarProduto', {produto});
+});
+
+app.post('/produtos/:id', (req, res) => {
+    const produto = produtos.find(p => p.id === parseInt(req.params.id));
+    if (!produto) return res.status(404).send("Produto não encontrado");
+
+    produto.nome = req.body.nome;
+    produto.preco = parseFloat(req.body.preco);
+    produto.estoque = parseInt(req.body.estoque);
+
+    res.redirect('/produtos');
+});
+
+// Excluir produto
+app.post('/produtos/:id/excluir', (req, res) => {
+    const index = produtos.findIndex(p => p.id === parseInt(req.params.id));
+    if (index === -1) return res.status(404).send("Produto não encontrado");
+
+    produtos.splice(index, 1);
+    res.redirect('/produtos');
+});
+// CRUD SERVIÇOS
+
+let servicos = [
+    {id: 1, nome: "Banho", preco: 50.00, descricao: "Banho completo"},
+    {id: 2, nome: "Tosa", preco: 70.00, descricao: "Tosa padrão"},
+    {id: 3, nome: "Consulta", preco: 120.00, descricao: "Consulta veterinária"},
+];
+
+// Listar serviços
+app.get('/servicos', (req, res) => {
+    res.render('listarServicos', {servicos});
+});
+
+// Página de novo serviço
+app.get('/servicos/novo', (req, res) => {
+    res.render('cadastrarServico');
+});
+
+// Criar serviço
+app.post('/servicos', (req, res) => {
+    const {nome, preco, descricao} = req.body;
+
+    const novo = {
+        id: servicos.length > 0 ? Math.max(...servicos.map(s => s.id)) + 1 : 1,
+        nome,
+        preco: parseFloat(preco),
+        descricao
+    };
+
+    servicos.push(novo);
+    res.redirect('/servicos');
+});
+
+// Detalhar serviço
+app.get('/servicos/:id', (req, res) => {
+    const servico = servicos.find(s => s.id === parseInt(req.params.id));
+    if (!servico) return res.status(404).send("Serviço não encontrado");
+    res.render('detalharServico', {servico});
+});
+
+// Editar serviço
+app.get('/servicos/:id/editar', (req, res) => {
+    const servico = servicos.find(s => s.id === parseInt(req.params.id));
+    if (!servico) return res.status(404).send("Serviço não encontrado");
+    res.render('editarServico', {servico});
+});
+
+app.post('/servicos/:id', (req, res) => {
+    const servico = servicos.find(s => s.id === parseInt(req.params.id));
+    if (!servico) return res.status(404).send("Serviço não encontrado");
+
+    servico.nome = req.body.nome;
+    servico.preco = parseFloat(req.body.preco);
+    servico.descricao = req.body.descricao;
+
+    res.redirect('/servicos');
+});
+
+// Excluir serviço
+app.post('/servicos/:id/excluir', (req, res) => {
+    const index = servicos.findIndex(s => s.id === parseInt(req.params.id));
+    if (index === -1) return res.status(404).send("Serviço não encontrado");
+
+    servicos.splice(index, 1);
+    res.redirect('/servicos');
+});
+// CRRUD FUNCIONAROS
+
+let funcionarios = [
+    {id: 1, nome: "Carlos Pereira", cargo: "Veterinário", salario: 4500},
+    {id: 2, nome: "Ana Souza", cargo: "Atendente", salario: 2200},
+    {id: 3, nome: "Rafael Lima", cargo: "Tosador", salario: 2800},
+];
+
+// Listar funcionários
+app.get('/funcionarios', (req, res) => {
+    res.render('listarFuncionarios', {funcionarios});
+});
+
+// Novo funcionário
+app.get('/funcionarios/novo', (req, res) => {
+    res.render('cadastrarFuncionario');
+});
+
+// Criar funcionário
+app.post('/funcionarios', (req, res) => {
+    const {nome, cargo, salario} = req.body;
+
+    const novo = {
+        id: funcionarios.length ? Math.max(...funcionarios.map(f => f.id)) + 1 : 1,
+        nome,
+        cargo,
+        salario: parseFloat(salario)
+    };
+
+    funcionarios.push(novo);
+    res.redirect('/funcionarios');
+});
+
+// Detalhar
+app.get('/funcionarios/:id', (req, res) => {
+    const funcionario = funcionarios.find(f => f.id === parseInt(req.params.id));
+    if (!funcionario) return res.status(404).send("Funcionário não encontrado");
+    res.render('detalharFuncionario', {funcionario});
+});
+
+// Editar
+app.get('/funcionarios/:id/editar', (req, res) => {
+    const funcionario = funcionarios.find(f => f.id === parseInt(req.params.id));
+    if (!funcionario) return res.status(404).send("Funcionário não encontrado");
+    res.render('editarFuncionario', {funcionario});
+});
+
+app.post('/funcionarios/:id', (req, res) => {
+    const funcionario = funcionarios.find(f => f.id === parseInt(req.params.id));
+    if (!funcionario) return res.status(404).send("Funcionário não encontrado");
+
+    funcionario.nome = req.body.nome;
+    funcionario.cargo = req.body.cargo;
+    funcionario.salario = parseFloat(req.body.salario);
+
+    res.redirect('/funcionarios');
+});
+
+// Excluir
+app.post('/funcionarios/:id/excluir', (req, res) => {
+    const index = funcionarios.findIndex(f => f.id === parseInt(req.params.id));
+    if (index === -1) return res.status(404).send("Funcionário não encontrado");
+
+    funcionarios.splice(index, 1);
+    res.redirect('/funcionarios');
+});
 
 app.listen(port, () => {
     console.log(`Servidor em execução: http://localhost:${port}`);

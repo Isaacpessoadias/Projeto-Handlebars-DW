@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Serviços</title>
+</head>
+<body>
+    <h1>Cadastrar Serviço</h1>
+
+<form action="/servicos" method="POST">
+    <label>Nome:</label>
+    <input type="text" name="nome" required>
+
+    <label>Preço:</label>
+    <input type="number" name="preco" step="0.01" required>
+
+    <label>Descrição:</label>
+    <textarea name="descricao" required></textarea>
+
+    <button type="submit">Salvar</button>
+</form>
+
+</body>
+</html>
